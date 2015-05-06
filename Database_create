@@ -1,0 +1,55 @@
+Last login: Tue May  5 10:54:55 on ttys001
+epicodus-4:list_of_tasks_modified Guest$ CREATE DATABASE to_do_test
+-bash: CREATE: command not found
+epicodus-4:list_of_tasks_modified Guest$ cd
+epicodus-4:~ Guest$ psql
+psql (9.4.0)
+Type "help" for help.
+
+Guest=# CREATE DATABASE to_do_test
+Guest-# ;
+CREATE DATABASE
+Guest=# \c to_do_test
+You are now connected to database "to_do_test" as user "Guest".
+to_do_test=# CREATE TABLE list (name varchar, id serial PRIMARY KEY);
+CREATE TABLE
+to_do_test=# SELECT name, id FROM list;
+ name | id
+------+----
+(0 rows)
+
+to_do_test=# CREATE TABLE task (description varchar, id serial PRIMARY KEY);
+CREATE TABLE
+to_do_test=# SELECT description, id FROM task;
+ description | id
+-------------+----
+(0 rows)
+
+to_do_test=# ALTER TABLE task
+to_do_test-# RENAME TO tasks
+to_do_test-# ;
+ALTER TABLE
+to_do_test=# CREATE TABLE tasks (description varchar, id serial PRIMARY KEY);
+ERROR:  relation "tasks" already exists
+to_do_test=# SELECT description, id FROM tasks;
+ description | id
+-------------+----
+(0 rows)
+
+to_do_test=# ALTER TABLE list
+RENAME TO lists
+;
+ALTER TABLE
+to_do_test=# SELECT name, id FROM lists;
+ name | id
+------+----
+(0 rows)
+
+to_do_test=# ALTER TABLE tasks ADD COLUMN list_id int;
+ALTER TABLE
+to_do_test=# SELECT description, id, list_id FROM tasks;
+ description | id | list_id
+-------------+----+---------
+(0 rows)
+
+to_do_test=#
